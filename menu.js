@@ -1,39 +1,4 @@
-const SAIGON_MENU = [
-  {category:'Закуски', items:[
-    ['Нем',550,'250 г'],['Нем Том',650,'250 г'],['Нем Хайсан',690,'250 г'],['Нем Куон',680,'250 г'],['Димсам',650,'250 г'],['Дау',550,'200 г'],['Бань Бао',300,''],['Батат Фри',500,''],['Ассорти Немов',890,''],['Курица по-сайгонски',580,''],['Креветки Темпура',650,''],['Креветки по-сайгонски',680,''],['Креветки на гриле',680,'']
-  ]},
-  {category:'Лапша', items:[
-    ['Бун Бо',700,'600 г'],['Бун Ча',700,'600 г'],['Фо Чон Вит',730,'600 г'],['Ми Том Ям',750,'500 г'],['Ми Сао (говядина)',700,'500 г'],['Ми Сао (курица)',650,'500 г'],['Ми Сао (морепродукты)',750,'500 г'],['Миен Сао (говядина)',680,'500 г'],['Миен Сао (курица)',620,'500 г'],['Миен Сао (морепродукты)',720,'500 г']
-  ]},
-  {category:'Рис', items:[
-    ['Ком Бо Бит Тет',700,'350 г'],['Ком Га по-сайгонски',650,'350 г'],['Ком Вит Сот',730,'350 г'],['Ком Том Сот',730,'350 г']
-  ]},
-  {category:'Суп', items:[
-    ['Том Ям',630,'700 г'],['Фо Вит',700,'700 г'],['Бун Хайсан',650,'700 г'],['Фо Бо',550,'700 г'],['Фо Тайлан',650,'700 г'],['Фо Га',550,'700 г']
-  ]},
-  {category:'Десерт', items:[
-    ['Манго Саго',450,''],['Соевый пуддинг с тапиокой',300,''],['Моти (в ассортименте)',250,''],['Мороженое (в ассортименте)',350,'']
-  ]},
-  {category:'Салат', items:[
-    ['Ном Бо',600,'300 г'],['Ном Хоай',650,'300 г'],['Салат Бо',650,'300 г']
-  ]}
-];
-
-const menuRoot=document.querySelector('[data-menu-root]');
-if(menuRoot){
-  const tabs=document.createElement('div'); tabs.className='menu-tabs'; tabs.setAttribute('role','tablist'); tabs.setAttribute('aria-label','Категории меню');
-  const panels=document.createElement('div'); panels.className='menu-panels';
-  SAIGON_MENU.forEach((group,index)=>{
-    const id=`menu-${index}`;
-    const tab=document.createElement('button'); tab.type='button'; tab.className=`menu-tab${index===0?' active':''}`; tab.textContent=group.category; tab.setAttribute('role','tab'); tab.setAttribute('aria-selected',String(index===0)); tab.setAttribute('aria-controls',id); tabs.appendChild(tab);
-    const panel=document.createElement('section'); panel.className=`menu-panel${index===0?' active':''}`; panel.id=id; panel.setAttribute('role','tabpanel'); panel.hidden=index!==0;
-    panel.innerHTML=`<div class="menu-panel-head"><p>${group.category}</p><span>${group.items.length} позиций</span></div><div class="menu-list">${group.items.map(([name,price,weight])=>`<article class="menu-item"><div><h3>${name}</h3>${weight?`<p>${weight}</p>`:''}</div><strong>${price.toLocaleString('ru-RU')} ₽</strong></article>`).join('')}</div>`;
-    panels.appendChild(panel);
-    tab.addEventListener('click',()=>{
-      tabs.querySelectorAll('.menu-tab').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-selected','false')});
-      panels.querySelectorAll('.menu-panel').forEach(x=>{x.classList.remove('active');x.hidden=true});
-      tab.classList.add('active');tab.setAttribute('aria-selected','true');panel.hidden=false;panel.classList.add('active');
-    });
-  });
-  menuRoot.append(tabs,panels);
-}
+const SAIGON_MENU=[{category:'Закуски',items:[['Нем',550,'250 г'],['Нем Том',650,'250 г'],['Нем Хайсан',690,'250 г'],['Нем Куон',680,'250 г'],['Димсам',650,'250 г'],['Дау',550,'200 г'],['Бань Бао',300,''],['Батат Фри',500,''],['Ассорти Немов',890,''],['Курица по-сайгонски',580,''],['Креветки Темпура',650,''],['Креветки по-сайгонски',680,''],['Креветки на гриле',680,'']]},{category:'Лапша',items:[['Бун Бо',700,'600 г'],['Бун Ча',700,'600 г'],['Фо Чон Вит',730,'600 г'],['Ми Том Ям',750,'500 г'],['Ми Сао (говядина)',700,'500 г'],['Ми Сао (курица)',650,'500 г'],['Ми Сао (морепродукты)',750,'500 г'],['Миен Сао (говядина)',680,'500 г'],['Миен Сао (курица)',620,'500 г'],['Миен Сао (морепродукты)',720,'500 г']]},{category:'Рис',items:[['Ком Бо Бит Тет',700,'350 г'],['Ком Га по-сайгонски',650,'350 г'],['Ком Вит Сот',730,'350 г'],['Ком Том Сот',730,'350 г']]},{category:'Суп',items:[['Том Ям',630,'700 г'],['Фо Вит',700,'700 г'],['Бун Хайсан',650,'700 г'],['Фо Бо',550,'700 г'],['Фо Тайлан',650,'700 г'],['Фо Га',550,'700 г']]},{category:'Десерт',items:[['Манго Саго',450,''],['Соевый пуддинг с тапиокой',300,''],['Моти (в ассортименте)',250,''],['Мороженое (в ассортименте)',350,'']]},{category:'Салат',items:[['Ном Бо',600,'300 г'],['Ном Хоай',650,'300 г'],['Салат Бо',650,'300 г']]}];
+const section=document.querySelector('.menu-section');
+if(section){const shell=section.querySelector('.shell');shell.innerHTML=`<div class="section-head"><div><p class="eyebrow">Актуальное меню</p><h2 id="menu-title">Выберите, что попробовать</h2></div><a class="text-link" href="https://yandex.ru/maps/org/saygon/105448387404/menu/" target="_blank" rel="noopener">Меню на Яндекс Картах →</a></div><p class="section-intro">Цены и вес перенесены из актуального меню Saigon VN. Выберите категорию — всё нужное видно без переходов и лишних экранов.</p><div class="menu-meta"><span><strong>${SAIGON_MENU.reduce((n,g)=>n+g.items.length,0)}</strong> позиций</span><span>6 категорий</span><span>₽ цены за блюдо</span></div><div class="menu-catalog" data-menu-root></div><div class="menu-source"><p><strong>Источник:</strong> меню Saigon VN на Яндекс Картах. Цены могут меняться рестораном; перед заказом можно сверить карточку.</p><a class="btn btn-ghost" href="https://yandex.ru/maps/org/saygon/105448387404/menu/" target="_blank" rel="noopener">Проверить актуальность</a></div>`;
+const root=shell.querySelector('[data-menu-root]'),tabs=document.createElement('div'),panels=document.createElement('div');tabs.className='menu-tabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Категории меню');panels.className='menu-panels';SAIGON_MENU.forEach((group,index)=>{const id=`menu-${index}`,tab=document.createElement('button');tab.type='button';tab.className=`menu-tab${index===0?' active':''}`;tab.textContent=group.category;tab.setAttribute('role','tab');tab.setAttribute('aria-selected',String(index===0));tab.setAttribute('aria-controls',id);tabs.appendChild(tab);const panel=document.createElement('section');panel.className=`menu-panel${index===0?' active':''}`;panel.id=id;panel.setAttribute('role','tabpanel');panel.hidden=index!==0;panel.innerHTML=`<div class="menu-panel-head"><p>${group.category}</p><span>${group.items.length} позиций</span></div><div class="menu-list">${group.items.map(([name,price,weight])=>`<article class="menu-item"><div><h3>${name}</h3>${weight?`<p>${weight}</p>`:''}</div><strong>${price.toLocaleString('ru-RU')} ₽</strong></article>`).join('')}</div>`;panels.appendChild(panel);tab.addEventListener('click',()=>{tabs.querySelectorAll('.menu-tab').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-selected','false')});panels.querySelectorAll('.menu-panel').forEach(x=>{x.classList.remove('active');x.hidden=true});tab.classList.add('active');tab.setAttribute('aria-selected','true');panel.hidden=false;panel.classList.add('active')})});root.append(tabs,panels)}
