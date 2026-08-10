@@ -24,3 +24,19 @@ const onScroll = () => {
 };
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
+
+// Lightweight, layered steam above the hero dish. It is decorative only and
+// disappears automatically for users who prefer reduced motion.
+const hero = document.querySelector('.hero');
+if (hero && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const steamStyles = document.createElement('link');
+  steamStyles.rel = 'stylesheet';
+  steamStyles.href = 'steam.css';
+  document.head.appendChild(steamStyles);
+
+  const steam = document.createElement('div');
+  steam.className = 'steam-field';
+  steam.setAttribute('aria-hidden', 'true');
+  steam.innerHTML = '<i class="steam-wisp"></i><i class="steam-wisp"></i><i class="steam-wisp"></i><i class="steam-wisp"></i><i class="steam-wisp"></i>';
+  hero.appendChild(steam);
+}
