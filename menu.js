@@ -12,8 +12,7 @@ const FEATURED_DISHES=[
   {name:'Том Ям',category:'Суп',price:630,weight:'700 г',note:'Яркий, пряный и насыщенный',className:'featured-tom',badge:'Яркий вкус'},
   {name:'Бун Ча',category:'Лапша',price:700,weight:'600 г',note:'Один из самых узнаваемых вкусов Вьетнама',className:'featured-bun',badge:'Стоит попробовать'},
   {name:'Нем Хайсан',category:'Закуски',price:690,weight:'250 г',note:'Хрустящая закуска с морепродуктами',className:'featured-nem',badge:'Для компании'},
-  {name:'Ком Том Сот',category:'Рис',price:730,weight:'350 г',note:'Креветки, рис и насыщенный соус',className:'featured-rice',badge:'Основное'},
-  {name:'Манго Саго',category:'Десерт',price:450,weight:'',note:'Лёгкий тропический финал',className:'featured-mango',badge:'Десерт'}
+  {name:'Ком Том Сот',category:'Рис',price:730,weight:'350 г',note:'Креветки, рис и насыщенный соус',className:'featured-rice',badge:'Основное'}
 ];
 
 const menuSection=document.querySelector('.menu-section');
