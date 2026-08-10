@@ -1,12 +1,79 @@
-const SAIGON_MENU=[{category:'Закуски',items:[['Нем',550,'250 г'],['Нем Том',650,'250 г'],['Нем Хайсан',690,'250 г'],['Нем Куон',680,'250 г'],['Димсам',650,'250 г'],['Дау',550,'200 г'],['Бань Бао',300,''],['Батат Фри',500,''],['Ассорти Немов',890,''],['Курица по-сайгонски',580,''],['Креветки Темпура',650,''],['Креветки по-сайгонски',680,''],['Креветки на гриле',680,'']]},{category:'Лапша',items:[['Бун Бо',700,'600 г'],['Бун Ча',700,'600 г'],['Фо Чон Вит',730,'600 г'],['Ми Том Ям',750,'500 г'],['Ми Сао (говядина)',700,'500 г'],['Ми Сао (курица)',650,'500 г'],['Ми Сао (морепродукты)',750,'500 г'],['Миен Сао (говядина)',680,'500 г'],['Миен Сао (курица)',620,'500 г'],['Миен Сао (морепродукты)',720,'500 г']]},{category:'Рис',items:[['Ком Бо Бит Тет',700,'350 г'],['Ком Га по-сайгонски',650,'350 г'],['Ком Вит Сот',730,'350 г'],['Ком Том Сот',730,'350 г']]},{category:'Суп',items:[['Том Ям',630,'700 г'],['Фо Вит',700,'700 г'],['Бун Хайсан',650,'700 г'],['Фо Бо',550,'700 г'],['Фо Тайлан',650,'700 г'],['Фо Га',550,'700 г']]},{category:'Десерт',items:[['Манго Саго',450,''],['Соевый пуддинг с тапиокой',300,''],['Моти (в ассортименте)',250,''],['Мороженое (в ассортименте)',350,'']]},{category:'Салат',items:[['Ном Бо',600,'300 г'],['Ном Хоай',650,'300 г'],['Салат Бо',650,'300 г']]}];
+const SAIGON_MENU=[
+  {category:'Закуски',items:[['Нем',550,'250 г'],['Нем Том',650,'250 г'],['Нем Хайсан',690,'250 г'],['Нем Куон',680,'250 г'],['Димсам',650,'250 г'],['Дау',550,'200 г'],['Бань Бао',300,''],['Батат Фри',500,''],['Ассорти Немов',890,''],['Курица по-сайгонски',580,''],['Креветки Темпура',650,''],['Креветки по-сайгонски',680,''],['Креветки на гриле',680,'']]},
+  {category:'Лапша',items:[['Бун Бо',700,'600 г'],['Бун Ча',700,'600 г'],['Фо Чон Вит',730,'600 г'],['Ми Том Ям',750,'500 г'],['Ми Сао (говядина)',700,'500 г'],['Ми Сао (курица)',650,'500 г'],['Ми Сао (морепродукты)',750,'500 г'],['Миен Сао (говядина)',680,'500 г'],['Миен Сао (курица)',620,'500 г'],['Миен Сао (морепродукты)',720,'500 г']]},
+  {category:'Рис',items:[['Ком Бо Бит Тет',700,'350 г'],['Ком Га по-сайгонски',650,'350 г'],['Ком Вит Сот',730,'350 г'],['Ком Том Сот',730,'350 г']]},
+  {category:'Суп',items:[['Том Ям',630,'700 г'],['Фо Вит',700,'700 г'],['Бун Хайсан',650,'700 г'],['Фо Бо',550,'700 г'],['Фо Тайлан',650,'700 г'],['Фо Га',550,'700 г']]},
+  {category:'Десерт',items:[['Манго Саго',450,''],['Соевый пуддинг с тапиокой',300,''],['Моти (в ассортименте)',250,''],['Мороженое (в ассортименте)',350,'']]},
+  {category:'Салат',items:[['Ном Бо',600,'300 г'],['Ном Хоай',650,'300 г'],['Салат Бо',650,'300 г']]}
+];
 
-const menuRoot=document.querySelector('[data-menu-root]');
-if(menuRoot){
+const FEATURED_DISHES=[
+  {name:'Фо Бо',category:'Суп',price:550,weight:'700 г',note:'Большая порция вьетнамской классики',className:'featured-pho',badge:'Классика'},
+  {name:'Том Ям',category:'Суп',price:630,weight:'700 г',note:'Яркий, пряный и насыщенный',className:'featured-tom',badge:'Яркий вкус'},
+  {name:'Бун Ча',category:'Лапша',price:700,weight:'600 г',note:'Один из самых узнаваемых вкусов Вьетнама',className:'featured-bun',badge:'Стоит попробовать'},
+  {name:'Нем Хайсан',category:'Закуски',price:690,weight:'250 г',note:'Хрустящая закуска с морепродуктами',className:'featured-nem',badge:'Для компании'},
+  {name:'Ком Том Сот',category:'Рис',price:730,weight:'350 г',note:'Креветки, рис и насыщенный соус',className:'featured-rice',badge:'Основное'},
+  {name:'Манго Саго',category:'Десерт',price:450,weight:'',note:'Лёгкий тропический финал',className:'featured-mango',badge:'Десерт'}
+];
+
+const menuSection=document.querySelector('.menu-section');
+if(menuSection){
+  const shell=menuSection.querySelector('.shell');
+  const total=SAIGON_MENU.reduce((sum,group)=>sum+group.items.length,0);
+  shell.innerHTML=`
+    <div class="section-head menu-heading">
+      <div><p class="eyebrow">Что заказать</p><h2 id="menu-title">Начните с самого интересного</h2></div>
+      <a class="text-link" href="https://yandex.ru/maps/org/saygon/105448387404/menu/?ll=37.867304%2C55.917370&z=17" target="_blank" rel="noopener">Сверить меню на Яндекс Картах →</a>
+    </div>
+    <p class="section-intro menu-intro">Сначала — блюда, с которых удобно знакомиться с Saigon VN. Полное меню со всеми ${total} позициями раскрывается ниже.</p>
+    <div class="featured-menu" aria-label="Рекомендуемые блюда">
+      ${FEATURED_DISHES.map((dish,index)=>`
+        <article class="featured-dish ${dish.className}${index===0?' featured-dish-main':''}">
+          <div class="featured-dish-shade"></div>
+          <div class="featured-dish-content">
+            <div class="featured-topline"><span>${dish.badge}</span><span>${dish.category}</span></div>
+            <div>
+              <h3>${dish.name}</h3>
+              <p>${dish.note}</p>
+              <div class="featured-price"><strong>${dish.price.toLocaleString('ru-RU')} ₽</strong>${dish.weight?`<span>${dish.weight}</span>`:''}</div>
+            </div>
+          </div>
+        </article>`).join('')}
+    </div>
+    <div class="menu-expand-wrap">
+      <button class="btn btn-primary menu-expand" type="button" aria-expanded="false" aria-controls="full-menu">
+        Показать всё меню <span>${total} позиций</span>
+      </button>
+      <p>Закуски, лапша, рис, супы, десерты и салаты — с актуальными ценами и граммовками.</p>
+    </div>
+    <div class="full-menu" id="full-menu" hidden>
+      <div class="menu-meta"><span>${total} позиций</span><span>${SAIGON_MENU.length} категорий</span><span>цены в ₽</span></div>
+      <div class="menu-catalog" data-menu-root></div>
+      <div class="menu-source"><p><strong>Источник меню:</strong> карточка Saigon VN на Яндекс Картах. Если ресторан обновит цены раньше сайта, ориентируйтесь на карточку Яндекса.</p><a class="btn btn-ghost" href="https://yandex.ru/maps/org/saygon/105448387404/menu/?ll=37.867304%2C55.917370&z=17" target="_blank" rel="noopener">Открыть оригинал</a></div>
+    </div>`;
+
+  const expandButton=shell.querySelector('.menu-expand');
+  const fullMenu=shell.querySelector('#full-menu');
+  expandButton.addEventListener('click',()=>{
+    const opening=fullMenu.hidden;
+    fullMenu.hidden=!opening;
+    expandButton.setAttribute('aria-expanded',String(opening));
+    expandButton.innerHTML=opening?'Скрыть полное меню':'Показать всё меню <span>'+total+' позиций</span>';
+    if(opening){
+      requestAnimationFrame(()=>fullMenu.classList.add('open'));
+      setTimeout(()=>fullMenu.scrollIntoView({behavior:'smooth',block:'start'}),80);
+    }else{
+      fullMenu.classList.remove('open');
+      expandButton.focus();
+    }
+  });
+
+  const menuRoot=shell.querySelector('[data-menu-root]');
   const tabs=document.createElement('div');
   const panels=document.createElement('div');
   tabs.className='menu-tabs';
   tabs.setAttribute('role','tablist');
-  tabs.setAttribute('aria-label','Категории меню');
+  tabs.setAttribute('aria-label','Категории полного меню');
   panels.className='menu-panels';
 
   const activate=(targetTab,targetPanel,focus=false)=>{
@@ -54,8 +121,7 @@ if(menuRoot){
   });
 
   tabs.addEventListener('keydown',(event)=>{
-    const keys=['ArrowRight','ArrowLeft','Home','End'];
-    if(!keys.includes(event.key))return;
+    if(!['ArrowRight','ArrowLeft','Home','End'].includes(event.key))return;
     event.preventDefault();
     const allTabs=[...tabs.querySelectorAll('.menu-tab')];
     const current=allTabs.indexOf(document.activeElement);
