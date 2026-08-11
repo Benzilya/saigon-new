@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b0b09">
+  <meta name="theme-color" content="#0b0b09" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f4efe5" media="(prefers-color-scheme: light)">
   <meta name="description" content="Saigon VN — ресторан вьетнамской и азиатской кухни в Королёве. Актуальное меню, цены, отзывы, телефон и маршрут.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta property="og:title" content="Saigon VN — вьетнамская кухня в Королёве">
@@ -11,7 +12,7 @@
   <meta property="og:type" content="restaurant">
   <meta property="og:locale" content="ru_RU">
   <title>Saigon VN — меню и ресторан вьетнамской кухни в Королёве</title>
-  <script>try{const s=localStorage.getItem('saigon-theme');const t=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.dataset.theme=t;document.querySelector('meta[name="theme-color"]').content=t==='light'?'#f4efe5':'#0b0b09'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+  <script>try{const s=localStorage.getItem('saigon-theme');const t=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;document.querySelectorAll('meta[name="theme-color"]').forEach(m=>m.content=t==='light'?'#f4efe5':'#0b0b09')}catch(e){document.documentElement.dataset.theme='dark';document.documentElement.style.colorScheme='dark'}</script>
   <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
