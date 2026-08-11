@@ -178,3 +178,44 @@ main>section{scroll-margin-top:calc(var(--header-h) + var(--safe-top) + 1rem)}
 @media(prefers-reduced-motion:reduce){
   .featured-menu,.menu-tabs{scroll-behavior:auto}
 }
+
+/* Stage 5: final responsive release polish */
+.section h2,.featured-dish h3,.featured-details h4,.booking-card h3{overflow-wrap:break-word}
+.section-intro,.atmosphere-copy>p:not(.eyebrow),.booking-card>p,.visit-note{max-width:60ch}
+.section-head h2{max-width:22ch}
+.mobile-actions{padding-left:max(6px,var(--safe-left));padding-right:max(6px,var(--safe-right))}
+
+@media(max-width:640px){
+  .section-intro{margin-bottom:var(--space-4)}
+  .eyebrow{margin-bottom:.75rem}
+  .review-grid article{border-radius:16px}
+  .booking-card h3{font-size:clamp(1.35rem,6vw,1.65rem)}
+  .map-label{max-width:calc(100% - 1.5rem);left:.75rem;bottom:.75rem}
+}
+
+@media(max-width:360px){
+  :root{--shell-gutter:.75rem}
+  .brand-sub{display:none}
+  .header-inner{gap:.5rem}
+  .hero h1{font-size:clamp(2rem,11vw,2.35rem)}
+  .hero-grid{padding-top:9.5rem}
+  .featured-dish,.featured-dish-main{min-width:90vw}
+  .menu-panel{padding:.9rem}
+  .menu-item{gap:.75rem}
+  .menu-item strong{font-size:.9rem}
+  .mobile-actions a{font-size:.66rem}
+}
+
+@media(max-width:960px) and (max-height:480px) and (orientation:landscape){
+  .site-header{backdrop-filter:blur(10px)}
+  .nav{padding-top:.5rem}
+  .hero-grid{padding-top:5.75rem;padding-bottom:1rem}
+  .hero-actions .btn{min-height:44px}
+  .featured-dish,.featured-dish-main{min-height:18rem}
+}
+
+@media(forced-colors:active){
+  .site-header,.nav,.rating-card,.review-grid article,.visit-copy,.map-card,.booking-card,.menu-catalog,.featured-dish{border:1px solid CanvasText}
+  .btn,.theme-toggle,.menu-toggle,.menu-tab,.featured-close{forced-color-adjust:auto}
+  .btn:focus-visible,.nav a:focus-visible,.text-link:focus-visible,.mobile-actions a:focus-visible,.menu-toggle:focus-visible,.rating-card:focus-visible,.map-card:focus-visible,.footer a:focus-visible,.theme-toggle:focus-visible,.menu-tab:focus-visible,.featured-dish:focus-visible{outline:2px solid Highlight;outline-offset:3px}
+}
