@@ -18,8 +18,7 @@
   .brand-main{letter-spacing:.025em}
 }
 
+/* One source of truth for compact landscape header height. */
 @media(max-width:960px) and (max-height:480px) and (orientation:landscape){
-  .header-inner{height:64px}
-  .nav{top:calc(64px + var(--safe-top));max-height:calc(100dvh - 64px - var(--safe-top))}
-  .menu-tabs{top:calc(64px + var(--safe-top))}
+  :root{--header-h:64px}
 }
