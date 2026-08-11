@@ -219,3 +219,25 @@ main>section{scroll-margin-top:calc(var(--header-h) + var(--safe-top) + 1rem)}
   .btn,.theme-toggle,.menu-toggle,.menu-tab,.featured-close{forced-color-adjust:auto}
   .btn:focus-visible,.nav a:focus-visible,.text-link:focus-visible,.mobile-actions a:focus-visible,.menu-toggle:focus-visible,.rating-card:focus-visible,.map-card:focus-visible,.footer a:focus-visible,.theme-toggle:focus-visible,.menu-tab:focus-visible,.featured-dish:focus-visible{outline:2px solid Highlight;outline-offset:3px}
 }
+
+/* Header follow-up: persistent header + dedicated mobile theme control */
+.site-header{position:fixed!important;inset:0 0 auto 0;width:100%;padding-top:var(--safe-top)}
+body{padding-top:calc(var(--header-h) + var(--safe-top))}
+.mobile-theme-toggle{display:none}
+
+@media(max-width:960px){
+  .header-inner{grid-template-columns:minmax(0,1fr) auto auto;gap:.65rem}
+  .mobile-theme-toggle{display:inline-flex;width:var(--touch);padding:0}
+  .mobile-theme-toggle .theme-toggle-text{display:none}
+  .nav-theme{display:none!important}
+  .hero{min-height:max(42rem,calc(100svh - var(--header-h) - var(--safe-top)))}
+}
+
+@media(max-width:640px){
+  .hero{min-height:max(39rem,calc(100svh - var(--header-h) - var(--safe-top)))}
+}
+
+@media(max-width:360px){
+  .header-inner{gap:.35rem}
+  .mobile-theme-toggle,.menu-toggle{min-width:44px;width:44px}
+}
