@@ -1,0 +1,67 @@
+/* Visual correction pass: restore shell gutter and strengthen light-theme contrast. */
+.hero-grid.shell{
+  width:min(calc(100% - (var(--shell-gutter) * 2)),var(--max));
+  margin-inline:auto;
+}
+
+/* Keep controls legible when the document switches to the light palette. */
+html[data-theme="light"] .btn-primary{
+  color:#fff;
+}
+html[data-theme="light"] .menu-toggle{
+  color:#211f1a;
+}
+html[data-theme="light"] .mobile-theme-toggle{
+  color:#211f1a;
+  background:#fffaf0;
+  border-color:#cdbfae;
+}
+html[data-theme="light"] .phone-link{
+  color:#765514;
+}
+html[data-theme="light"] .booking-card small{
+  color:#655e53;
+}
+html[data-theme="light"] .menu-meta,
+html[data-theme="light"] .menu-panel-head span,
+html[data-theme="light"] .menu-source p{
+  color:#625b50;
+}
+html[data-theme="light"] .menu-tab{
+  color:#625b50;
+}
+html[data-theme="light"] .menu-tab:hover,
+html[data-theme="light"] .menu-tab:focus-visible{
+  color:#211f1a;
+  background:#e9dfcf;
+}
+html[data-theme="light"] .menu-tab.active{
+  color:#fff;
+  background:#a91f1d;
+}
+html[data-theme="light"] .mobile-actions{
+  background:rgba(255,250,240,.96);
+  border-color:#cdbfae;
+  box-shadow:0 12px 34px rgba(66,49,28,.16);
+}
+html[data-theme="light"] .mobile-actions a{
+  color:#211f1a;
+}
+html[data-theme="light"] .mobile-actions a.primary{
+  color:#fff;
+  background:#a91f1d;
+}
+
+/* Photo-backed components intentionally stay dark in both themes; make their text explicit. */
+html[data-theme="light"] .featured-dish,
+html[data-theme="light"] .featured-details,
+html[data-theme="light"] .map-card,
+html[data-theme="light"] .map-label{
+  color:#fff;
+}
+
+@media(max-width:640px){
+  .hero-grid.shell{
+    width:min(calc(100% - (var(--shell-gutter) * 2)),var(--max));
+  }
+}
