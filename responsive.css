@@ -135,3 +135,46 @@
   .btn:hover,.theme-toggle:hover{transform:none}
   .featured-dish:hover .featured-dish-image{transform:scale(1.01)}
 }
+
+/* Stage 4: responsive QA and hardening */
+html{overflow-x:clip}
+body{overscroll-behavior-x:none}
+main>section{scroll-margin-top:calc(var(--header-h) + var(--safe-top) + 1rem)}
+.featured-menu,.menu-tabs{-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.featured-menu::-webkit-scrollbar,.menu-tabs::-webkit-scrollbar{display:none}
+
+@media(max-width:960px){
+  .site-header{padding-top:var(--safe-top)}
+  .nav{top:calc(var(--header-h) + var(--safe-top));max-height:calc(100dvh - var(--header-h) - var(--safe-top));overflow-y:auto;overscroll-behavior:contain;padding-bottom:calc(1rem + var(--safe-bottom))}
+  .menu-tabs{top:calc(var(--header-h) + var(--safe-top))}
+  .full-menu{scroll-margin-top:calc(var(--header-h) + var(--safe-top) + .75rem)}
+}
+
+@media(max-width:960px) and (max-height:560px) and (orientation:landscape){
+  .hero{min-height:max(30rem,100svh)}
+  .hero-grid{grid-template-columns:minmax(0,1fr) auto;gap:1.25rem;padding-top:clamp(6.5rem,24vh,8rem);padding-bottom:1.5rem}
+  .hero-copy{max-width:38rem}
+  .hero h1{font-size:clamp(2.15rem,5.8vw,3.5rem);margin-bottom:1rem}
+  .lead{font-size:.95rem;margin-bottom:1rem;max-width:34rem}
+  .rating-card{align-self:end}
+  .proof-grid>div{padding-block:.8rem}
+  .section{padding-block:clamp(3rem,8vw,4rem)}
+  .interior-photo{min-height:20rem}
+  .featured-dish,.featured-dish-main{min-height:20rem}
+}
+
+@media(max-width:640px) and (max-height:560px) and (orientation:landscape){
+  .hero{min-height:32rem}
+  .hero-grid{grid-template-columns:1fr;padding-top:6.25rem}
+  .rating-card{display:none}
+  .hero-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(pointer:coarse){
+  .btn,.theme-toggle,.menu-toggle,.menu-tab,.featured-dish,.featured-close,.mobile-actions a{touch-action:manipulation}
+  .featured-menu,.menu-tabs{touch-action:pan-x}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .featured-menu,.menu-tabs{scroll-behavior:auto}
+}
