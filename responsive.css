@@ -1,0 +1,137 @@
+/* Stage 3: section-level responsive composition */
+
+/* Keep long labels and generated menu content from forcing horizontal overflow. */
+.hero-copy,.section-head>*,.atmosphere-copy,.visit-copy,.booking-card,.menu-panel,.menu-item>div{min-width:0}
+.section-head{flex-wrap:wrap}
+.section-head>div{flex:1 1 32rem}
+.text-link{min-height:var(--touch);display:inline-flex;align-items:center;white-space:normal}
+
+/* Hero: preserve the cinematic image while keeping copy readable at every width. */
+.hero-grid{grid-template-columns:minmax(0,clamp(30rem,53vw,41rem)) minmax(10rem,1fr);width:100%}
+.hero-copy{padding-block:clamp(1rem,3vw,3rem)}
+.hero h1{text-wrap:balance}
+.lead{text-wrap:pretty}
+.rating-card{width:min(100%,12rem)}
+
+/* Proof points use content-driven columns instead of abrupt fixed layouts. */
+.proof-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.proof-grid>div{min-width:0;padding:clamp(1rem,1.2vw + .7rem,1.5rem) clamp(.85rem,1.5vw,1.75rem)}
+.proof strong,.proof small{overflow-wrap:anywhere}
+
+/* Atmosphere and reviews scale progressively rather than collapsing too early. */
+.atmosphere-grid{grid-template-columns:minmax(0,1.08fr) minmax(20rem,.92fr)}
+.interior-photo{min-height:clamp(26rem,43vw,34rem)}
+.atmosphere-copy{padding:clamp(2rem,4.5vw,4.4rem)}
+.review-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(.75rem,1.2vw,1rem)}
+.review-grid article{padding:clamp(1.35rem,2.2vw,1.8rem);display:flex;flex-direction:column}
+.review-grid p{min-height:0;flex:1}
+
+/* Visit block keeps map useful instead of squeezing it into a narrow card. */
+.visit-grid{grid-template-columns:minmax(17rem,1fr) minmax(22rem,1.15fr) minmax(16rem,.85fr);gap:clamp(.75rem,1.2vw,1rem)}
+.visit-copy,.map-card,.booking-card{min-height:clamp(20rem,29vw,23rem)}
+.visit-copy,.booking-card{padding:clamp(1.5rem,2.6vw,2.2rem)}
+.map-label{max-width:calc(100% - 2rem);left:1rem;bottom:1rem;overflow-wrap:anywhere}
+.footer-grid{grid-template-columns:minmax(11rem,1.2fr) minmax(12rem,1fr) minmax(10rem,1fr) minmax(16rem,2fr)}
+
+/* Menu cards and full menu stay comfortably tappable and readable. */
+.featured-menu{grid-template-columns:minmax(0,1.35fr) repeat(2,minmax(0,1fr));gap:clamp(.65rem,1.2vw,.9rem)}
+.featured-dish{min-width:0}
+.featured-dish-content{padding:clamp(1.15rem,2vw,1.4rem)}
+.featured-close{width:var(--touch);height:var(--touch);right:.75rem;top:.75rem}
+.menu-expand-wrap{padding:clamp(1rem,2vw,1.4rem);flex-wrap:wrap}
+.menu-expand-wrap>p{flex:1 1 22rem}
+.menu-tabs{scroll-padding-inline:.6rem}
+.menu-tab{min-height:var(--touch)}
+.menu-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(1.5rem,3vw,2.7rem)}
+.menu-item{min-width:0}
+.menu-item h3{overflow-wrap:anywhere}
+
+@media(max-width:1200px){
+  .hero-grid{grid-template-columns:minmax(0,1fr) auto}
+  .proof-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .proof-grid>div{border-bottom:1px solid var(--line)}
+  .proof-grid>div:nth-last-child(-n+2){border-bottom:0}
+  .atmosphere-grid{grid-template-columns:minmax(0,1fr) minmax(19rem,.9fr)}
+  .review-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .review-grid article:last-child{grid-column:1/-1}
+  .visit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .booking-card{grid-column:1/-1;min-height:auto}
+  .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .featured-menu{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:960px){
+  .hero{min-height:max(42rem,100svh)}
+  .hero-grid{grid-template-columns:1fr;align-items:end;padding-top:clamp(12rem,34vh,20rem);padding-bottom:clamp(2rem,5vw,3.5rem)}
+  .hero-copy{padding-block:0;max-width:42rem}
+  .rating-card{justify-self:start;width:auto;max-width:100%}
+  .proof-grid{width:100%}
+  .atmosphere-grid{grid-template-columns:1fr}
+  .interior-photo{min-height:clamp(22rem,60vw,30rem)}
+  .review-grid{grid-template-columns:1fr 1fr}
+  .review-grid article:last-child{grid-column:1/-1}
+  .visit-grid{grid-template-columns:1fr 1fr}
+  .map-card{min-height:21rem}
+  .featured-menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;margin-right:0;padding:0;scroll-snap-type:none}
+  .featured-dish,.featured-dish-main{min-width:0;height:auto;min-height:22rem;grid-row:auto}
+  .featured-dish:first-child{grid-column:1/-1;min-height:26rem}
+  .menu-list{grid-template-columns:1fr}
+}
+
+@media(max-width:640px){
+  .section-head{display:block;margin-bottom:var(--space-3)}
+  .section-head .text-link{margin-top:.65rem}
+  .hero{min-height:max(39rem,100svh)}
+  .hero-grid{padding-top:clamp(10rem,30vh,15rem);padding-bottom:calc(1.6rem + var(--safe-bottom))}
+  .hero-actions{display:grid;grid-template-columns:1fr}
+  .hero-actions .btn{width:100%}
+  .rating-card{margin-top:.25rem}
+  .proof-grid{grid-template-columns:1fr 1fr}
+  .proof-grid>div{border-left:0!important;border-right:1px solid var(--line)}
+  .proof-grid>div:nth-child(even){border-right:0}
+  .proof-grid>div:nth-last-child(-n+2){border-bottom:0}
+  .atmosphere-grid{border-radius:clamp(1rem,4vw,1.4rem)}
+  .interior-photo{min-height:clamp(19rem,80vw,24rem)}
+  .atmosphere-copy{padding:clamp(1.4rem,6vw,2rem)}
+  .atmosphere-copy .btn{width:100%}
+  .review-grid{grid-template-columns:1fr}
+  .review-grid article:last-child{grid-column:auto}
+  .visit-grid{grid-template-columns:1fr}
+  .booking-card{grid-column:auto}
+  .visit-copy,.booking-card{min-height:auto}
+  .map-card{min-height:clamp(18rem,78vw,22rem)}
+  .visit-actions{display:grid;grid-template-columns:1fr}
+  .visit-actions .btn{width:100%}
+  .footer-grid{grid-template-columns:1fr;gap:1rem}
+  .footer-grid p{margin:.1rem 0}
+  .featured-menu{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--shell-gutter);gap:.7rem;margin-inline:calc(var(--shell-gutter) * -1);padding-inline:var(--shell-gutter);padding-bottom:.75rem;overscroll-behavior-inline:contain}
+  .featured-dish,.featured-dish-main,.featured-dish:first-child{grid-column:auto;min-width:min(86vw,22rem);height:23rem;min-height:0;scroll-snap-align:start}
+  .featured-dish-main{min-width:min(90vw,23rem)}
+  .menu-expand{width:100%;min-width:0}
+  .menu-expand-wrap>p{flex-basis:100%}
+  .menu-catalog{margin-inline:0}
+  .menu-panel{padding:clamp(1rem,4vw,1.25rem)}
+  .menu-panel-head{align-items:flex-start;gap:.7rem;flex-direction:column}
+  .menu-item{gap:1rem}
+  .menu-source{padding:1rem}
+  .mobile-actions{grid-template-columns:repeat(3,minmax(0,1fr));left:max(.5rem,var(--safe-left));right:max(.5rem,var(--safe-right));bottom:max(.5rem,var(--safe-bottom))}
+}
+
+@media(max-width:400px){
+  .brand-sub{max-width:12rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hero h1{font-size:clamp(2.15rem,11vw,2.7rem)}
+  .proof-grid{grid-template-columns:1fr}
+  .proof-grid>div{border-right:0;border-bottom:1px solid var(--line)!important}
+  .proof-grid>div:last-child{border-bottom:0!important}
+  .featured-dish,.featured-dish-main{min-width:88vw}
+  .menu-meta{gap:.45rem}
+  .menu-meta span{padding:.55rem .65rem}
+  .menu-item{align-items:flex-start}
+  .mobile-actions{gap:.15rem;padding:.3rem}
+  .mobile-actions a{font-size:.7rem;padding-inline:.25rem}
+}
+
+@media(hover:none){
+  .btn:hover,.theme-toggle:hover{transform:none}
+  .featured-dish:hover .featured-dish-image{transform:scale(1.01)}
+}
