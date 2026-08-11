@@ -43,8 +43,9 @@ html[data-theme="light"] .booking-card{background:radial-gradient(circle at 100%
 html[data-theme="light"] .booking-card p{color:#625c51}
 html[data-theme="light"] .footer{border-color:#d8ccba;color:#6f685d;background:#ebe2d3}
 html[data-theme="light"] .credits{color:#8b8377}
-.interor-theme-fallback{display:none}.interior-photo{background-image:linear-gradient(0deg,rgba(4,4,3,.24),rgba(4,4,3,.02)),url('assets/interior/interior-dark.webp');background-position:center 48%;background-size:cover;background-repeat:no-repeat;transition:background-image .2s ease}
-html[data-theme="light"] .interior-photo{background-image:linear-gradient(0deg,rgba(255,248,237,.04),rgba(255,248,237,.01)),url('assets/interior/interior-light.webp');background-position:center 48%}
-@media(max-width:1024px){.interior-photo{background-position:center 50%}html[data-theme="light"] .interior-photo{background-position:center 50%}}
-@media(max-width:768px){.header-actions .theme-toggle{display:none}.nav-theme{display:flex!important;margin-top:8px;width:100%;justify-content:flex-start}.theme-toggle{min-height:48px}.nav{background:#0b0b09}.nav a{color:#f5f1e8}html[data-theme="light"] .nav{background:#faf6ee;border-color:#ddd1bf}html[data-theme="light"] .nav a{color:#211f1a}html[data-theme="light"] .nav-theme{color:#211f1a;background:#fffaf0}.interior-photo{min-height:440px;background-position:58% center}html[data-theme="light"] .interior-photo{background-position:58% center}}
-@media(max-width:430px){.interior-photo{min-height:390px;background-position:61% center}html[data-theme="light"] .interior-photo{background-position:61% center}}
+.interor-theme-fallback{display:none}
+/* Both theme variants use one locked viewport. This prevents the room from shifting when the theme changes. */
+.interior-photo{min-height:500px;background-image:linear-gradient(0deg,rgba(4,4,3,.24),rgba(4,4,3,.02)),url('assets/interior/interior-dark.webp');background-position:50% 50%;background-size:cover;background-repeat:no-repeat;transition:background-image .16s ease}
+html[data-theme="light"] .interior-photo{background-image:linear-gradient(0deg,rgba(255,248,237,.04),rgba(255,248,237,.01)),url('assets/interior/interior-light.webp');background-position:50% 50%;background-size:cover}
+@media(max-width:768px){.header-actions .theme-toggle{display:none}.nav-theme{display:flex!important;margin-top:8px;width:100%;justify-content:flex-start}.theme-toggle{min-height:48px}.nav{background:#0b0b09}.nav a{color:#f5f1e8}html[data-theme="light"] .nav{background:#faf6ee;border-color:#ddd1bf}html[data-theme="light"] .nav a{color:#211f1a}html[data-theme="light"] .nav-theme{color:#211f1a;background:#fffaf0}.interior-photo{min-height:440px;background-position:50% 50%}html[data-theme="light"] .interior-photo{background-position:50% 50%}}
+@media(max-width:430px){.interior-photo{min-height:390px;background-position:50% 50%}html[data-theme="light"] .interior-photo{background-position:50% 50%}}
