@@ -2,6 +2,7 @@
 @import url('desktop-foundation.css');
 @import url('desktop-hero-header.css');
 @import url('desktop-menu.css');
+@import url('desktop-sections.css');
 
 /* Header QA polish: keep three mobile controls on one row across narrow viewports. */
 @media(max-width:960px){
