@@ -7,108 +7,122 @@ const SAIGON_MENU=[
   {category:'Салат',items:[['Ном Бо',600,'300 г'],['Ном Хоай',650,'300 г'],['Салат Бо',650,'300 г']]}
 ];
 
-const FEATURED_DISHES=[
-  {name:'Фо Бо',category:'Суп',price:550,weight:'700 г',note:'Большая порция вьетнамской классики',className:'featured-pho',badge:'Хит',image:'assets/menu/pho-bo.webp',ingredients:'Рисовая лапша, говядина, ароматный говяжий бульон, лук, свежая зелень и лайм.'},
-  {name:'Том Ям',category:'Суп',price:630,weight:'700 г',note:'Яркий, пряный и насыщенный',className:'featured-tom',badge:'Острое',image:'assets/menu/tom-yam.webp',ingredients:'Креветки, грибы, пряный бульон том ям, кокосовая основа, лемонграсс, лайм, чили и свежая зелень.'},
-  {name:'Бун Ча',category:'Лапша',price:700,weight:'600 г',note:'Один из самых узнаваемых вкусов Вьетнама',className:'featured-bun',badge:'Хит',image:'assets/menu/bun-cha.webp',ingredients:'Рисовая лапша бун, свинина на гриле, свежая зелень, овощи и кисло-сладкий соус.'},
-  {name:'Нем Хайсан',category:'Закуски',price:690,weight:'250 г',note:'Хрустящая закуска с морепродуктами',className:'featured-nem',badge:'Для компании',image:'assets/menu/nem-haisan.webp',ingredients:'Хрустящие роллы с морепродуктами и овощной начинкой, свежая зелень и соус для подачи.'},
-  {name:'Ком Том Сот',category:'Рис',price:730,weight:'350 г',note:'Креветки, рис и насыщенный соус',className:'featured-rice',badge:'Популярное',image:'assets/menu/com-tom-sot.webp',ingredients:'Рис, креветки, овощи, зелёный лук и соус в азиатском стиле.'}
-];
+const DISH_DETAILS={
+  'Фо Бо':{image:'assets/menu/pho-bo.webp',badge:'Классика',description:'Большая порция вьетнамской классики на ароматном говяжьем бульоне.',ingredients:['Рисовая лапша','Говядина','Говяжий бульон','Лук','Свежая зелень','Лайм']},
+  'Том Ям':{image:'assets/menu/tom-yam.webp',badge:'Острое',description:'Яркий, пряный и насыщенный суп с морепродуктами.',ingredients:['Креветки','Грибы','Бульон том ям','Кокосовая основа','Лемонграсс','Лайм','Чили','Свежая зелень']},
+  'Бун Ча':{image:'assets/menu/bun-cha.webp',badge:'Хит',description:'Один из самых узнаваемых вкусов Вьетнама: лапша, мясо на гриле и свежая зелень.',ingredients:['Рисовая лапша бун','Свинина на гриле','Свежая зелень','Овощи','Кисло-сладкий соус']},
+  'Нем Хайсан':{image:'assets/menu/nem-haisan.webp',badge:'Для компании',description:'Хрустящая закуска с морепродуктами и овощной начинкой.',ingredients:['Морепродукты','Овощная начинка','Хрустящая оболочка','Свежая зелень','Соус для подачи']},
+  'Ком Том Сот':{image:'assets/menu/com-tom-sot.webp',badge:'Популярное',description:'Креветки, рис и насыщенный соус в азиатском стиле.',ingredients:['Рис','Креветки','Овощи','Зелёный лук','Азиатский соус']}
+};
+
+const FEATURED_NAMES=['Фо Бо','Нем Хайсан','Том Ям','Ком Том Сот','Бун Ча'];
+const CATEGORY_COPY={
+  'Закуски':'Закуски и блюда для начала трапезы.',
+  'Лапша':'Блюда с рисовой и стеклянной лапшой.',
+  'Рис':'Сытные блюда на основе риса.',
+  'Суп':'Вьетнамские и азиатские супы большими порциями.',
+  'Десерт':'Сладкое завершение ужина.',
+  'Салат':'Свежие салаты в азиатском стиле.'
+};
 
 const menuSection=document.querySelector('.menu-section');
 if(menuSection){
   const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const scrollBehavior=reduceMotion?'auto':'smooth';
+  const behavior=reduceMotion?'auto':'smooth';
   const shell=menuSection.querySelector('.shell');
   const total=SAIGON_MENU.reduce((sum,group)=>sum+group.items.length,0);
-  const popularNames=new Set(FEATURED_DISHES.map(dish=>dish.name));
+  const allItems=SAIGON_MENU.flatMap(group=>group.items.map(([name,price,weight])=>({name,price,weight,category:group.category,detail:DISH_DETAILS[name]||null})));
+  const featured=FEATURED_NAMES.map(name=>allItems.find(item=>item.name===name)).filter(Boolean);
 
-  shell.innerHTML=`
-    <div class="section-head menu-heading">
-      <div><p class="eyebrow">Актуальное меню</p><h2 id="menu-title">Что хочется сегодня?</h2></div>
-      <a class="text-link" href="https://yandex.ru/maps/org/saygon/105448387404/menu/?ll=37.867304%2C55.917370&z=17" target="_blank" rel="noopener">Сверить на Яндекс Картах →</a>
-    </div>
-    <p class="section-intro menu-intro">Сначала — блюда, с которых удобно познакомиться с Saigon VN. Ниже можно быстро выбрать категорию или найти конкретное блюдо среди ${total} позиций.</p>
-    <div class="featured-menu" aria-label="Популярные блюда">
-      ${FEATURED_DISHES.map((dish,index)=>`<article class="featured-dish ${dish.className}${index===0?' featured-dish-main':''}" role="button" tabindex="0" aria-expanded="false" aria-label="${dish.name}: показать ингредиенты"><img class="featured-dish-image" src="${dish.image}" alt="${dish.name} — блюдо Saigon VN" loading="${index===0?'eager':'lazy'}" decoding="async"><div class="featured-dish-shade"></div><div class="card-steam" aria-hidden="true"><i></i><i></i><i></i></div><div class="featured-dish-content"><div class="featured-topline"><span>${dish.badge}</span><span>${dish.category}</span></div><div class="featured-summary"><h3>${dish.name}</h3><p>${dish.note}</p><div class="featured-price"><strong>${dish.price.toLocaleString('ru-RU')} ₽</strong>${dish.weight?`<span>${dish.weight}</span>`:''}</div><span class="featured-tap-hint">Состав блюда</span></div></div><div class="featured-details" aria-hidden="true"><button class="featured-close" type="button" aria-label="Закрыть состав">×</button><span class="featured-details-kicker">Основные ингредиенты</span><h4>${dish.name}</h4><p>${dish.ingredients}</p><small>Точный состав, способ приготовления и аллергены уточняйте у ресторана.</small></div></article>`).join('')}
-    </div>
-    <div class="menu-browser" aria-label="Полное меню">
-      <div class="menu-browser-head">
-        <div><p class="eyebrow">Все блюда</p><h3>Найдите своё</h3></div>
-        <div class="menu-meta"><span>${total} позиций</span><span>${SAIGON_MENU.length} категорий</span></div>
-      </div>
-      <label class="menu-search"><span class="menu-search-icon" aria-hidden="true">⌕</span><input type="search" placeholder="Поиск: Фо Бо, Нем, Том Ям…" autocomplete="off" aria-label="Поиск по меню"><button type="button" class="menu-search-clear" aria-label="Очистить поиск" hidden>×</button></label>
-      <div class="menu-tabs" role="tablist" aria-label="Категории меню"></div>
-      <div class="menu-results" aria-live="polite"></div>
-    </div>
-    <div class="menu-source"><p><strong>Источник меню:</strong> карточка Saigon VN на Яндекс Картах. Если ресторан обновит цены раньше сайта, ориентируйтесь на карточку Яндекса.</p><a class="btn btn-ghost" href="https://yandex.ru/maps/org/saygon/105448387404/menu/?ll=37.867304%2C55.917370&z=17" target="_blank" rel="noopener">Открыть оригинал</a></div>`;
-
-  const featuredCards=[...shell.querySelectorAll('.featured-dish')];
-  const setCardState=(card,open)=>{card.classList.toggle('is-active',open);card.setAttribute('aria-expanded',String(open));const details=card.querySelector('.featured-details');if(details)details.setAttribute('aria-hidden',String(!open));};
-  const closeAllCards=()=>featuredCards.forEach(card=>setCardState(card,false));
-  const toggleCard=(card)=>{const open=!card.classList.contains('is-active');closeAllCards();setCardState(card,open);};
-  featuredCards.forEach(card=>{
-    card.addEventListener('click',event=>{if(event.target.closest('.featured-close')){event.stopPropagation();setCardState(card,false);card.focus();return;}toggleCard(card);});
-    card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCard(card);}if(event.key==='Escape'){event.preventDefault();setCardState(card,false);}});
-  });
-  document.addEventListener('pointerdown',event=>{if(!event.target.closest('.featured-dish'))closeAllCards();});
-
-  const tabs=shell.querySelector('.menu-tabs');
-  const results=shell.querySelector('.menu-results');
-  const searchInput=shell.querySelector('.menu-search input');
-  const clearButton=shell.querySelector('.menu-search-clear');
-  const categories=['Все','Популярное',...SAIGON_MENU.map(group=>group.category)];
-  let activeCategory='Все';
-
-  const flattenMenu=()=>SAIGON_MENU.flatMap(group=>group.items.map(([name,price,weight])=>({name,price,weight,category:group.category,popular:popularNames.has(name)})));
-  const allItems=flattenMenu();
-
-  const renderResults=()=>{
-    const query=searchInput.value.trim().toLocaleLowerCase('ru-RU');
-    const filtered=allItems.filter(item=>{
-      const categoryMatch=activeCategory==='Все'||(activeCategory==='Популярное'&&item.popular)||item.category===activeCategory;
-      const searchMatch=!query||`${item.name} ${item.category}`.toLocaleLowerCase('ru-RU').includes(query);
-      return categoryMatch&&searchMatch;
-    });
-    clearButton.hidden=!query;
-    if(!filtered.length){results.innerHTML=`<div class="menu-empty"><strong>Ничего не нашли</strong><p>Попробуйте другое название или выберите «Все».</p></div>`;return;}
-    const grouped=filtered.reduce((acc,item)=>{(acc[item.category]??=[]).push(item);return acc;},{});
-    results.innerHTML=Object.entries(grouped).map(([category,items])=>`<section class="menu-group"><div class="menu-panel-head"><p>${category}</p><span>${items.length} ${items.length===1?'позиция':'позиций'}</span></div><div class="menu-list">${items.map(item=>`<article class="menu-item${item.popular?' is-popular':''}"><div class="menu-item-copy"><div class="menu-item-title"><h4>${item.name}</h4>${item.popular?'<span class="menu-badge">Хит</span>':''}</div><p>${item.weight||item.category}</p></div><strong>${item.price.toLocaleString('ru-RU')} ₽</strong></article>`).join('')}</div></section>`).join('');
+  const cardMarkup=item=>{
+    const detail=item.detail;
+    return `<button class="menu-feature-card" type="button" data-dish="${item.name}" aria-label="Открыть ${item.name}">${detail?.image?`<img src="${detail.image}" alt="${item.name} — иллюстрация блюда Saigon VN" loading="lazy" decoding="async">`:''}<span class="menu-feature-shade"></span><span class="menu-feature-top">${detail?.badge||item.category}</span><span class="menu-feature-copy"><strong>${item.name}</strong><small>${detail?.description||CATEGORY_COPY[item.category]}</small><span><b>${item.price.toLocaleString('ru-RU')} ₽</b>${item.weight?`<em>${item.weight}</em>`:''}</span></span></button>`;
   };
 
-  categories.forEach((category,index)=>{
+  shell.innerHTML=`
+    <div class="menu-topline">
+      <div><p class="eyebrow">Меню</p><h2 id="menu-title">Попробуйте наши хиты</h2><p class="section-intro">Самые интересные позиции Saigon VN — и полное меню, которое можно раскрыть только когда оно понадобится.</p></div>
+      <div class="menu-top-actions"><span class="menu-count">${total} позиций</span><button class="btn btn-primary menu-toggle-full" type="button" aria-expanded="false" aria-controls="full-menu-panel">Показать полное меню <span aria-hidden="true">⌄</span></button></div>
+    </div>
+    <div class="menu-feature-toolbar"><strong>Популярные блюда</strong><div><button class="menu-carousel-arrow prev" type="button" aria-label="Предыдущие блюда">‹</button><button class="menu-carousel-arrow next" type="button" aria-label="Следующие блюда">›</button></div></div>
+    <div class="menu-feature-viewport"><div class="menu-feature-track">${featured.map(cardMarkup).join('')}</div></div>
+    <div class="full-menu-panel" id="full-menu-panel" hidden>
+      <div class="menu-workspace">
+        <div class="menu-list-pane">
+          <div class="menu-list-head"><h3>Полное меню</h3><button class="menu-collapse" type="button" aria-label="Скрыть полное меню">Скрыть <span aria-hidden="true">⌃</span></button></div>
+          <label class="menu-search"><span aria-hidden="true">⌕</span><input type="search" placeholder="Поиск по меню…" autocomplete="off" aria-label="Поиск по меню"><button class="menu-search-clear" type="button" aria-label="Очистить поиск" hidden>×</button></label>
+          <div class="menu-tabs" role="tablist" aria-label="Категории меню"></div>
+          <div class="menu-results" aria-live="polite"></div>
+        </div>
+        <aside class="dish-detail" aria-live="polite"></aside>
+      </div>
+    </div>
+    <div class="menu-source"><p><strong>Источник меню:</strong> карточка Saigon VN на Яндекс Картах. Точный состав и аллергены лучше уточнить у ресторана.</p><a class="text-link" href="https://yandex.ru/maps/org/saygon/105448387404/menu/?ll=37.867304%2C55.917370&z=17" target="_blank" rel="noopener">Сверить меню →</a></div>`;
+
+  const fullPanel=shell.querySelector('.full-menu-panel');
+  const toggleFull=shell.querySelector('.menu-toggle-full');
+  const collapse=shell.querySelector('.menu-collapse');
+  const tabs=shell.querySelector('.menu-tabs');
+  const results=shell.querySelector('.menu-results');
+  const detailPanel=shell.querySelector('.dish-detail');
+  const searchInput=shell.querySelector('.menu-search input');
+  const searchClear=shell.querySelector('.menu-search-clear');
+  const featureTrack=shell.querySelector('.menu-feature-track');
+  let activeCategory='Суп';
+  let selectedName='Фо Бо';
+
+  const openMenu=(focus=false)=>{
+    fullPanel.hidden=false;
+    requestAnimationFrame(()=>fullPanel.classList.add('is-open'));
+    toggleFull.setAttribute('aria-expanded','true');
+    toggleFull.innerHTML='Скрыть полное меню <span aria-hidden="true">⌃</span>';
+    if(focus)setTimeout(()=>fullPanel.scrollIntoView({behavior,block:'start'}),60);
+  };
+  const closeMenu=()=>{
+    fullPanel.classList.remove('is-open');
+    toggleFull.setAttribute('aria-expanded','false');
+    toggleFull.innerHTML='Показать полное меню <span aria-hidden="true">⌄</span>';
+    setTimeout(()=>{if(!fullPanel.classList.contains('is-open'))fullPanel.hidden=true;},reduceMotion?0:220);
+  };
+  toggleFull.addEventListener('click',()=>fullPanel.hidden?openMenu(true):closeMenu());
+  collapse.addEventListener('click',()=>{closeMenu();toggleFull.focus({preventScroll:true});});
+
+  const renderDetail=item=>{
+    selectedName=item.name;
+    const d=item.detail;
+    detailPanel.innerHTML=`
+      <div class="dish-detail-media ${d?.image?'has-image':'no-image'}">${d?.image?`<img src="${d.image}" alt="${item.name} — иллюстрация блюда Saigon VN" decoding="async">`:`<div class="dish-photo-placeholder"><span>SAIGON VN</span><strong>${item.category}</strong><small>Фото блюда скоро появится</small></div>`}</div>
+      <div class="dish-detail-body"><div class="dish-detail-title"><div><p class="eyebrow">${item.category}</p><h3>${item.name}</h3></div><strong>${item.price.toLocaleString('ru-RU')} ₽</strong></div>
+      <div class="dish-detail-meta">${item.weight?`<span>${item.weight}</span>`:''}${d?.badge?`<span>${d.badge}</span>`:''}</div>
+      <p class="dish-description">${d?.description||CATEGORY_COPY[item.category]}</p>
+      <div class="dish-composition"><strong>Состав</strong>${d?.ingredients?.length?`<div>${d.ingredients.map(ingredient=>`<span>${ingredient}</span>`).join('')}</div>`:'<p>Точный состав этой позиции пока не внесён на сайт. Уточните ингредиенты и аллергены у ресторана.</p>'}</div></div>`;
+    results.querySelectorAll('.menu-row').forEach(row=>row.classList.toggle('is-selected',row.dataset.dish===item.name));
+  };
+
+  const renderResults=()=>{
+    const q=searchInput.value.trim().toLocaleLowerCase('ru-RU');
+    const items=q?allItems.filter(item=>`${item.name} ${item.category}`.toLocaleLowerCase('ru-RU').includes(q)):allItems.filter(item=>item.category===activeCategory);
+    searchClear.hidden=!q;
+    if(!items.length){results.innerHTML='<div class="menu-empty"><strong>Ничего не нашли</strong><p>Попробуйте другое название блюда.</p></div>';return;}
+    results.innerHTML=`<div class="menu-category-head"><div><strong>${q?'Результаты поиска':activeCategory}</strong><small>${q?'По всему меню':CATEGORY_COPY[activeCategory]}</small></div><span>${items.length} поз.</span></div><div class="menu-row-list">${items.map(item=>`<button class="menu-row${item.name===selectedName?' is-selected':''}" type="button" data-dish="${item.name}"><span class="menu-row-thumb">${item.detail?.image?`<img src="${item.detail.image}" alt="" loading="lazy">`:'<i aria-hidden="true">•</i>'}</span><span class="menu-row-copy"><strong>${item.name}</strong><small>${item.detail?.description||CATEGORY_COPY[item.category]}</small></span>${item.weight?`<span class="menu-row-weight">${item.weight}</span>`:''}<b>${item.price.toLocaleString('ru-RU')} ₽</b><span class="menu-row-arrow" aria-hidden="true">›</span></button>`).join('')}</div>`;
+    results.querySelectorAll('.menu-row').forEach(row=>row.addEventListener('click',()=>{const item=allItems.find(x=>x.name===row.dataset.dish);if(item)renderDetail(item);}));
+  };
+
+  SAIGON_MENU.forEach((group,index)=>{
     const button=document.createElement('button');
-    button.type='button';
-    button.className=`menu-tab${index===0?' active':''}`;
-    button.textContent=category;
-    button.setAttribute('role','tab');
-    button.setAttribute('aria-selected',String(index===0));
-    button.tabIndex=index===0?0:-1;
-    button.addEventListener('click',()=>{
-      activeCategory=category;
-      tabs.querySelectorAll('.menu-tab').forEach(tab=>{const active=tab===button;tab.classList.toggle('active',active);tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;});
-      renderResults();
-      results.scrollIntoView({behavior:scrollBehavior,block:'nearest'});
-    });
+    button.type='button';button.className=`menu-tab${group.category===activeCategory?' active':''}`;button.textContent=group.category;button.setAttribute('role','tab');button.setAttribute('aria-selected',String(group.category===activeCategory));button.tabIndex=group.category===activeCategory?0:-1;
+    button.addEventListener('click',()=>{activeCategory=group.category;searchInput.value='';tabs.querySelectorAll('.menu-tab').forEach(tab=>{const on=tab===button;tab.classList.toggle('active',on);tab.setAttribute('aria-selected',String(on));tab.tabIndex=on?0:-1;});renderResults();const first=allItems.find(item=>item.category===activeCategory);if(first)renderDetail(first);});
     tabs.appendChild(button);
   });
-
-  tabs.addEventListener('keydown',event=>{
-    if(!['ArrowRight','ArrowLeft','Home','End'].includes(event.key))return;
-    event.preventDefault();
-    const allTabs=[...tabs.querySelectorAll('.menu-tab')];
-    const current=allTabs.indexOf(document.activeElement);
-    let next=current<0?0:current;
-    if(event.key==='ArrowRight')next=(next+1)%allTabs.length;
-    if(event.key==='ArrowLeft')next=(next-1+allTabs.length)%allTabs.length;
-    if(event.key==='Home')next=0;
-    if(event.key==='End')next=allTabs.length-1;
-    allTabs[next].click();
-    allTabs[next].focus({preventScroll:true});
-    allTabs[next].scrollIntoView({behavior:scrollBehavior,block:'nearest',inline:'center'});
-  });
-
+  tabs.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const all=[...tabs.querySelectorAll('.menu-tab')];let index=all.indexOf(document.activeElement);if(event.key==='ArrowRight')index=(index+1)%all.length;if(event.key==='ArrowLeft')index=(index-1+all.length)%all.length;if(event.key==='Home')index=0;if(event.key==='End')index=all.length-1;all[index].click();all[index].focus({preventScroll:true});});
   searchInput.addEventListener('input',renderResults);
-  clearButton.addEventListener('click',()=>{searchInput.value='';searchInput.focus();renderResults();});
+  searchClear.addEventListener('click',()=>{searchInput.value='';searchInput.focus();renderResults();});
+
+  shell.querySelectorAll('.menu-feature-card').forEach(card=>card.addEventListener('click',()=>{const item=allItems.find(x=>x.name===card.dataset.dish);if(!item)return;activeCategory=item.category;searchInput.value='';tabs.querySelectorAll('.menu-tab').forEach(tab=>{const on=tab.textContent===activeCategory;tab.classList.toggle('active',on);tab.setAttribute('aria-selected',String(on));tab.tabIndex=on?0:-1;});renderResults();renderDetail(item);openMenu(true);}));
+  const slide=direction=>featureTrack.scrollBy({left:direction*Math.max(280,featureTrack.clientWidth*.72),behavior});
+  shell.querySelector('.menu-carousel-arrow.prev').addEventListener('click',()=>slide(-1));
+  shell.querySelector('.menu-carousel-arrow.next').addEventListener('click',()=>slide(1));
+
   renderResults();
+  renderDetail(allItems.find(item=>item.name==='Фо Бо')||allItems[0]);
 }
