@@ -1,0 +1,134 @@
+/* Desktop polish — Stage 2: grid, typography and vertical rhythm foundation.
+   Scoped above tablet so the completed mobile/tablet system remains unchanged. */
+
+@media (min-width:1025px){
+  :root{
+    --max:1320px;
+    --shell-gutter:clamp(1.75rem,2.45vw,3rem);
+    --desktop-section:clamp(5.25rem,6.25vw,7rem);
+    --desktop-section-emotional:clamp(6rem,7.4vw,8.25rem);
+    --desktop-section-compact:clamp(4.25rem,5vw,5.75rem);
+    --fs-body:clamp(.9375rem,.89rem + .16vw,1rem);
+    --fs-lead:clamp(1.0625rem,.98rem + .28vw,1.1875rem);
+    --fs-h1:clamp(3.75rem,2.5rem + 3.15vw,5.5rem);
+    --fs-h2:clamp(2.65rem,2.12rem + 1.4vw,3.45rem);
+  }
+
+  .shell{
+    width:min(calc(100% - (var(--shell-gutter) * 2)),var(--max));
+  }
+
+  body{
+    line-height:1.6;
+  }
+
+  .section{
+    padding-block:var(--desktop-section);
+  }
+
+  .menu-section{
+    padding-block:clamp(5.5rem,6.7vw,7.5rem);
+  }
+
+  .atmosphere{
+    padding-block:var(--desktop-section-emotional);
+  }
+
+  .reviews{
+    padding-block:clamp(5.5rem,6.7vw,7.5rem);
+  }
+
+  .visit{
+    padding-top:var(--desktop-section-compact);
+    padding-bottom:clamp(5.25rem,6vw,6.75rem);
+  }
+
+  .section-head{
+    gap:clamp(2.5rem,5vw,6rem);
+    margin-bottom:clamp(1.65rem,2.1vw,2.15rem);
+  }
+
+  .section-head>div{
+    flex-basis:36rem;
+  }
+
+  .section-head h2{
+    max-width:18ch;
+    text-wrap:balance;
+    letter-spacing:-.018em;
+  }
+
+  .section-intro{
+    max-width:66ch;
+    margin-bottom:clamp(2rem,2.8vw,2.75rem);
+    line-height:1.72;
+  }
+
+  .eyebrow{
+    margin-bottom:.875rem;
+    font-size:.72rem;
+    line-height:1.2;
+    letter-spacing:.145em;
+  }
+
+  .lead{
+    line-height:1.65;
+  }
+
+  .text-link{
+    font-size:.8125rem;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+
+  .btn{
+    padding-inline:1.35rem;
+    font-size:.8125rem;
+    letter-spacing:.005em;
+  }
+
+  .btn-large{
+    min-height:54px;
+    padding-inline:1.6rem;
+  }
+
+  .review-grid p,
+  .atmosphere-copy blockquote{
+    text-wrap:pretty;
+  }
+
+  .visit-note,
+  .booking-card>p,
+  .atmosphere-copy>p:not(.eyebrow){
+    line-height:1.72;
+  }
+
+  .footer{
+    padding-top:clamp(2.5rem,3.2vw,3.25rem);
+    padding-bottom:calc(clamp(2.5rem,3.2vw,3.25rem) + var(--safe-bottom));
+  }
+}
+
+/* 1280/1366 remain dense enough for laptop screens. */
+@media (min-width:1025px) and (max-width:1366px){
+  :root{
+    --shell-gutter:clamp(1.5rem,2.2vw,2rem);
+    --desktop-section:clamp(4.75rem,5.8vw,5.5rem);
+    --desktop-section-emotional:clamp(5.25rem,6.5vw,6.25rem);
+    --desktop-section-compact:clamp(3.75rem,4.5vw,4.5rem);
+    --fs-h1:clamp(3.45rem,2.6rem + 2.7vw,4.4rem);
+    --fs-h2:clamp(2.4rem,1.95rem + 1.5vw,2.95rem);
+  }
+
+  .section-head{
+    gap:2.5rem;
+  }
+}
+
+/* Ultra-wide screens gain a little breathing room, but content never becomes a runway. */
+@media (min-width:1920px){
+  :root{
+    --max:1360px;
+    --shell-gutter:3rem;
+  }
+}
