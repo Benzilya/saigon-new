@@ -1,5 +1,6 @@
 @import url('visual-polish.css');
 @import url('desktop-foundation.css');
+@import url('desktop-hero-header.css');
 
 /* Header QA polish: keep three mobile controls on one row across narrow viewports. */
 @media(max-width:960px){

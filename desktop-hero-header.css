@@ -1,0 +1,301 @@
+/* Desktop polish — Stage 3: hero and header composition. */
+
+@media (min-width:1025px){
+  .site-header{
+    background:rgba(11,11,9,.76);
+    border-bottom-color:rgba(255,255,255,.075);
+    backdrop-filter:blur(14px) saturate(1.04);
+    transition:background-color .24s ease,border-color .24s ease,box-shadow .24s ease,backdrop-filter .24s ease;
+  }
+
+  .header-inner{
+    transition:height .24s ease,gap .24s ease;
+  }
+
+  .brand-main{
+    letter-spacing:.055em;
+  }
+
+  .brand-sub{
+    letter-spacing:.135em;
+  }
+
+  .nav{
+    gap:clamp(1.25rem,1.8vw,2rem);
+  }
+
+  .nav a{
+    position:relative;
+    padding-block:.45rem;
+    color:color-mix(in srgb,var(--text) 88%,transparent);
+    font-size:.8125rem;
+    font-weight:600;
+  }
+
+  .nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:.2rem;
+    height:1px;
+    background:var(--gold);
+    transform:scaleX(0);
+    transform-origin:right;
+    transition:transform .22s ease;
+  }
+
+  .nav a:hover::after,
+  .nav a:focus-visible::after{
+    transform:scaleX(1);
+    transform-origin:left;
+  }
+
+  .header-actions{
+    gap:.65rem;
+  }
+
+  .header-actions .theme-toggle{
+    min-width:46px;
+    padding-inline:.72rem;
+    background:rgba(255,255,255,.025);
+  }
+
+  .header-actions .phone-link{
+    white-space:nowrap;
+    font-size:.775rem;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+
+  .header-actions>.btn{
+    min-height:46px;
+    padding-inline:1.2rem;
+  }
+
+  .site-header.scrolled{
+    background:rgba(11,11,9,.94);
+    border-bottom-color:rgba(255,255,255,.1);
+    box-shadow:0 10px 32px rgba(0,0,0,.16);
+    backdrop-filter:blur(18px) saturate(1.08);
+  }
+
+  .site-header.scrolled .header-inner{
+    height:68px;
+  }
+
+  .hero{
+    min-height:clamp(610px,calc(100svh - var(--header-h)),760px);
+    max-height:760px;
+    align-items:center;
+  }
+
+  .hero-photo{
+    background-position:58% 48%;
+  }
+
+  .hero-shade{
+    background:
+      linear-gradient(90deg,rgba(7,7,6,.965) 0%,rgba(7,7,6,.87) 31%,rgba(7,7,6,.55) 48%,rgba(7,7,6,.16) 72%,rgba(7,7,6,.28) 100%),
+      linear-gradient(0deg,rgba(7,7,6,.2),transparent 45%);
+  }
+
+  .hero-grid{
+    grid-template-columns:minmax(0,clamp(36rem,49vw,43rem)) minmax(12rem,1fr);
+    align-items:end;
+    gap:clamp(3rem,6vw,7rem);
+    padding-block:clamp(3.25rem,6vh,5rem);
+  }
+
+  .hero-copy{
+    max-width:43rem;
+    padding-block:0;
+  }
+
+  .hero .eyebrow{
+    margin-bottom:1rem;
+  }
+
+  .hero h1{
+    max-width:12.2ch;
+    margin-bottom:1.35rem;
+    line-height:1.015;
+    letter-spacing:-.027em;
+    text-wrap:balance;
+  }
+
+  .hero .lead{
+    max-width:34rem;
+    margin-bottom:1.75rem;
+    color:color-mix(in srgb,#f5f1e8 88%,transparent);
+  }
+
+  .hero-actions{
+    gap:.7rem;
+  }
+
+  .hero-actions .btn-primary{
+    min-width:13.5rem;
+  }
+
+  .rating-card{
+    width:13.4rem;
+    padding:1.15rem 1.2rem 1.1rem;
+    align-self:end;
+    justify-self:end;
+    border-color:rgba(255,255,255,.2);
+    background:rgba(10,10,8,.68);
+    box-shadow:0 18px 46px rgba(0,0,0,.2);
+    transition:border-color .22s ease,background-color .22s ease,transform .22s ease;
+  }
+
+  .rating-card:hover{
+    transform:translateY(-2px);
+    background:rgba(10,10,8,.8);
+  }
+
+  .rating-card .star,
+  .rating-card strong{
+    line-height:1;
+  }
+
+  .rating-card strong{
+    font-size:1.8rem;
+  }
+
+  .rating-card span:nth-of-type(2){
+    margin-top:.45rem;
+    font-size:.7rem;
+    line-height:1.45;
+  }
+
+  .rating-card small{
+    margin-top:.1rem;
+  }
+
+  .proof-grid>div{
+    transition:background-color .2s ease;
+  }
+
+  .proof-grid>div:hover{
+    background:rgba(255,255,255,.018);
+  }
+}
+
+/* Laptop-height tuning: keep hero complete and reveal the trust strip below it. */
+@media (min-width:1025px) and (max-height:820px){
+  .hero{
+    min-height:calc(100svh - var(--header-h));
+    max-height:690px;
+  }
+
+  .hero-grid{
+    padding-block:clamp(2.4rem,5vh,3.5rem);
+  }
+
+  .hero h1{
+    margin-bottom:1.05rem;
+  }
+
+  .hero .lead{
+    margin-bottom:1.35rem;
+    line-height:1.55;
+  }
+
+  .hero .eyebrow{
+    margin-bottom:.75rem;
+  }
+}
+
+/* 1280/1366: preserve breathing room without crowding header actions. */
+@media (min-width:1025px) and (max-width:1366px){
+  .header-inner{
+    gap:1.05rem;
+  }
+
+  .nav{
+    gap:1.05rem;
+  }
+
+  .header-actions{
+    gap:.5rem;
+  }
+
+  .header-actions>.btn{
+    padding-inline:1rem;
+  }
+
+  .hero-grid{
+    grid-template-columns:minmax(0,38rem) 1fr;
+    gap:clamp(2rem,4vw,4rem);
+  }
+
+  .hero h1{
+    max-width:12.8ch;
+  }
+
+  .rating-card{
+    width:12.6rem;
+  }
+}
+
+/* Give the food photograph a little more presence on large displays. */
+@media (min-width:1728px){
+  .hero-photo{
+    background-position:61% 47%;
+  }
+
+  .hero-grid{
+    grid-template-columns:minmax(0,42rem) 1fr;
+  }
+}
+
+html[data-theme="light"] .site-header{
+  background:rgba(250,246,238,.82);
+  border-bottom-color:rgba(91,73,47,.13);
+}
+
+html[data-theme="light"] .site-header.scrolled{
+  background:rgba(250,246,238,.96);
+  border-bottom-color:rgba(91,73,47,.16);
+  box-shadow:0 10px 30px rgba(77,58,35,.11);
+}
+
+html[data-theme="light"] .nav a{
+  color:#302c25;
+}
+
+html[data-theme="light"] .header-actions .theme-toggle{
+  background:rgba(255,250,240,.7);
+}
+
+html[data-theme="light"] .hero-shade{
+  background:
+    linear-gradient(90deg,rgba(245,239,226,.975) 0%,rgba(245,239,226,.9) 31%,rgba(245,239,226,.62) 49%,rgba(245,239,226,.16) 73%,rgba(245,239,226,.18) 100%),
+    linear-gradient(0deg,rgba(245,239,226,.12),transparent 45%);
+}
+
+html[data-theme="light"] .rating-card{
+  background:rgba(255,250,240,.87);
+  border-color:rgba(119,94,55,.24);
+  box-shadow:0 18px 42px rgba(75,58,35,.12);
+}
+
+html[data-theme="light"] .rating-card:hover{
+  background:rgba(255,250,240,.96);
+  border-color:rgba(119,94,55,.38);
+}
+
+html[data-theme="light"] .proof-grid>div:hover{
+  background:rgba(91,73,47,.035);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .site-header,.header-inner,.nav a::after,.rating-card,.proof-grid>div{
+    transition:none;
+  }
+
+  .rating-card:hover{
+    transform:none;
+  }
+}
