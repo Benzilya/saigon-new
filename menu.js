@@ -10,6 +10,7 @@ const SAIGON_MENU=[
 const DISH_DETAILS={
   'Фо Бо':{image:'assets/menu/pho-bo.webp',badge:'Классика',description:'Большая порция вьетнамской классики на ароматном говяжьем бульоне.',ingredients:['Рисовая лапша','Говядина','Говяжий бульон','Лук','Свежая зелень','Лайм']},
   'Том Ям':{image:'assets/menu/tom-yam.webp',badge:'Острое',description:'Яркий, пряный и насыщенный суп с морепродуктами.',ingredients:['Креветки','Грибы','Бульон том ям','Кокосовая основа','Лемонграсс','Лайм','Чили','Свежая зелень']},
+  'Фо Вит':{image:'assets/menu/pho-vit.webp',badge:'Вьетнам',description:'Ароматный суп с уткой, рисовой лапшой и свежей зеленью.',ingredients:['Рисовая лапша','Утка','Бульон','Лук','Свежая зелень','Лайм']},
   'Бун Ча':{image:'assets/menu/bun-cha.webp',badge:'Хит',description:'Один из самых узнаваемых вкусов Вьетнама: лапша, мясо на гриле и свежая зелень.',ingredients:['Рисовая лапша бун','Свинина на гриле','Свежая зелень','Овощи','Кисло-сладкий соус']},
   'Нем Хайсан':{image:'assets/menu/nem-haisan.webp',badge:'Для компании',description:'Хрустящая закуска с морепродуктами и овощной начинкой.',ingredients:['Морепродукты','Овощная начинка','Хрустящая оболочка','Свежая зелень','Соус для подачи']},
   'Ком Том Сот':{image:'assets/menu/com-tom-sot.webp',badge:'Популярное',description:'Креветки, рис и насыщенный соус в азиатском стиле.',ingredients:['Рис','Креветки','Овощи','Зелёный лук','Азиатский соус']}
@@ -119,10 +120,11 @@ if(menuSection){
   searchClear.addEventListener('click',()=>{searchInput.value='';searchInput.focus();renderResults();});
 
   shell.querySelectorAll('.menu-feature-card').forEach(card=>card.addEventListener('click',()=>{const item=allItems.find(x=>x.name===card.dataset.dish);if(!item)return;activeCategory=item.category;searchInput.value='';tabs.querySelectorAll('.menu-tab').forEach(tab=>{const on=tab.textContent===activeCategory;tab.classList.toggle('active',on);tab.setAttribute('aria-selected',String(on));tab.tabIndex=on?0:-1;});renderResults();renderDetail(item);openMenu(true);}));
-  const slide=direction=>featureTrack.scrollBy({left:direction*Math.max(280,featureTrack.clientWidth*.72),behavior});
-  shell.querySelector('.menu-carousel-arrow.prev').addEventListener('click',()=>slide(-1));
-  shell.querySelector('.menu-carousel-arrow.next').addEventListener('click',()=>slide(1));
+
+  const scrollFeatures=direction=>{const card=featureTrack.querySelector('.menu-feature-card');featureTrack.scrollBy({left:direction*((card?.getBoundingClientRect().width||320)+16),behavior});};
+  shell.querySelector('.menu-carousel-arrow.prev').addEventListener('click',()=>scrollFeatures(-1));
+  shell.querySelector('.menu-carousel-arrow.next').addEventListener('click',()=>scrollFeatures(1));
 
   renderResults();
-  renderDetail(allItems.find(item=>item.name==='Фо Бо')||allItems[0]);
+  renderDetail(allItems.find(item=>item.name===selectedName)||allItems[0]);
 }
