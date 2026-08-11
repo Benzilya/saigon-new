@@ -1,9 +1,11 @@
+@import url('visual-polish.css');
+
 /* Header QA polish: keep three mobile controls on one row across narrow viewports. */
 @media(max-width:960px){
   .header-inner{grid-template-columns:minmax(0,1fr) auto auto;gap:.5rem}
   .header-inner>.brand{min-width:0}
-  .mobile-header-theme,.menu-toggle{justify-self:end;flex:0 0 auto}
-  .mobile-header-theme{width:var(--touch);padding:0}
+  .mobile-theme-toggle,.menu-toggle{justify-self:end;flex:0 0 auto}
+  .mobile-theme-toggle{width:var(--touch);padding:0}
 }
 
 @media(max-width:430px){
