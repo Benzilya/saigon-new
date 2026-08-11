@@ -1,0 +1,213 @@
+/* Desktop polish — Stage 5: atmosphere, reviews, visit/conversion and footer.
+   Desktop-only by design; tablet/mobile keep the completed responsive system. */
+
+@media (min-width:1025px){
+  /* Atmosphere: editorial rather than another generic card row. */
+  .atmosphere-grid{
+    grid-template-columns:minmax(0,1.18fr) minmax(24rem,.82fr);
+    min-height:clamp(31rem,38vw,36rem);
+    border-radius:20px;
+    box-shadow:0 28px 70px rgba(0,0,0,.16);
+  }
+  .interior-photo{min-height:100%}
+  .interior-photo::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg,transparent 68%,rgba(8,9,7,.14));
+    pointer-events:none;
+  }
+  .atmosphere-copy{
+    padding:clamp(3rem,4.8vw,4.8rem);
+    justify-content:center;
+  }
+  .atmosphere-copy h2{
+    max-width:12ch;
+    margin-bottom:1.35rem;
+    letter-spacing:-.018em;
+  }
+  .atmosphere-copy>p:not(.eyebrow){
+    max-width:47ch;
+    margin:0;
+  }
+  .atmosphere-copy blockquote{
+    position:relative;
+    max-width:34ch;
+    margin:clamp(1.7rem,2.5vw,2.35rem) 0 clamp(1.8rem,2.8vw,2.55rem);
+    padding:.15rem 0 .15rem 1.55rem;
+    border-left:2px solid color-mix(in srgb,var(--gold) 82%,transparent);
+    font-size:clamp(1.12rem,1rem + .35vw,1.32rem);
+    line-height:1.62;
+  }
+  .atmosphere-copy blockquote::before{
+    content:"“";
+    position:absolute;
+    left:-.08rem;
+    top:-1.2rem;
+    color:color-mix(in srgb,var(--gold) 30%,transparent);
+    font:400 4.5rem/1 Prata,Georgia,serif;
+    pointer-events:none;
+  }
+  .atmosphere-copy .btn{min-width:13.5rem}
+
+  /* Reviews: a distinct trust language, lighter and more typographic than food cards. */
+  .reviews .section-head{margin-bottom:clamp(2rem,2.6vw,2.65rem)}
+  .review-grid{gap:clamp(.9rem,1.3vw,1.15rem)}
+  .review-grid article{
+    position:relative;
+    min-height:clamp(18rem,22vw,20.5rem);
+    padding:clamp(1.75rem,2.4vw,2.25rem);
+    border-radius:16px;
+    background:linear-gradient(155deg,color-mix(in srgb,var(--surface) 94%,var(--surface-2)),var(--surface));
+    overflow:hidden;
+    transition:border-color .22s ease,transform .22s ease,background .22s ease;
+  }
+  .review-grid article::after{
+    content:"“";
+    position:absolute;
+    right:1rem;
+    bottom:-1.3rem;
+    color:rgba(202,162,75,.08);
+    font:400 8rem/1 Prata,Georgia,serif;
+    pointer-events:none;
+  }
+  .review-grid article:hover{
+    transform:translateY(-2px);
+    border-color:color-mix(in srgb,var(--gold) 34%,var(--line));
+  }
+  .stars{font-size:.82rem;letter-spacing:.16em}
+  .review-grid p{
+    max-width:35ch;
+    margin:1.35rem 0 1.8rem;
+    font-size:clamp(1.08rem,.98rem + .24vw,1.22rem);
+    line-height:1.62;
+  }
+  .review-grid strong{
+    margin-top:auto;
+    font-size:.74rem;
+    letter-spacing:.035em;
+    text-transform:uppercase;
+  }
+
+  /* Visit: clear action hierarchy and a stronger booking finish. */
+  .visit-grid{
+    grid-template-columns:minmax(0,.95fr) minmax(0,1.12fr) minmax(17rem,.83fr);
+    gap:clamp(.9rem,1.25vw,1.15rem);
+    align-items:stretch;
+  }
+  .visit-copy,.map-card,.booking-card{
+    min-height:clamp(21rem,26vw,24rem);
+    border-radius:18px;
+  }
+  .visit-copy{
+    display:flex;
+    flex-direction:column;
+    padding:clamp(2rem,2.8vw,2.65rem);
+    background:linear-gradient(155deg,var(--surface),color-mix(in srgb,var(--surface) 82%,var(--surface-2)));
+  }
+  .visit-copy h2{max-width:12ch;letter-spacing:-.018em}
+  .visit-copy address{
+    margin:clamp(1.45rem,2vw,1.8rem) 0 1rem;
+    max-width:29ch;
+    font-size:clamp(1.05rem,.96rem + .25vw,1.18rem);
+    line-height:1.6;
+  }
+  .visit-note{max-width:45ch;margin:0}
+  .visit-actions{margin-top:auto;padding-top:1.8rem}
+  .visit-actions .btn{min-width:9.5rem}
+  .map-card{
+    transition:border-color .22s ease,transform .22s ease,box-shadow .22s ease;
+  }
+  .map-card:hover{
+    transform:translateY(-2px);
+    border-color:color-mix(in srgb,var(--gold) 36%,var(--line));
+    box-shadow:0 20px 42px rgba(0,0,0,.14);
+  }
+  .pin{width:52px;height:52px;box-shadow:0 10px 28px rgba(0,0,0,.42)}
+  .map-label{
+    left:1.15rem;
+    bottom:1.15rem;
+    padding:.65rem .85rem;
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(8px);
+  }
+  .booking-card{
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
+    padding:clamp(2rem,2.8vw,2.65rem);
+    background:radial-gradient(circle at 100% 0,rgba(88,98,58,.52),transparent 36%),linear-gradient(145deg,#181b13,#12140f 72%);
+  }
+  .booking-card::before{
+    content:"";
+    position:absolute;
+    inset:auto -18% -42% 28%;
+    height:70%;
+    z-index:-1;
+    background:radial-gradient(circle,rgba(202,162,75,.11),transparent 66%);
+    pointer-events:none;
+  }
+  .booking-card h3{
+    max-width:13ch;
+    font-family:Prata,Georgia,serif;
+    font-size:clamp(1.75rem,1.42rem + .65vw,2.15rem);
+    font-weight:400;
+    line-height:1.18;
+    letter-spacing:-.016em;
+    margin-bottom:.8rem;
+  }
+  .booking-card p{max-width:34ch;margin:0 0 1.55rem;line-height:1.65}
+  .booking-card .btn{
+    margin-top:auto;
+    min-height:54px;
+    font-size:.9rem;
+  }
+  .booking-card small{margin-top:.65rem;font-size:.66rem;letter-spacing:.02em}
+
+  /* Footer: quieter close, aligned to the same desktop grid. */
+  .footer-grid{
+    grid-template-columns:minmax(12rem,1.15fr) minmax(14rem,1fr) minmax(11rem,.85fr) minmax(21rem,1.8fr);
+    gap:clamp(1.5rem,3vw,3.2rem);
+    align-items:start;
+  }
+  .footer .brand{margin-top:-.1rem}
+  .footer-grid>p,.footer-grid>a{line-height:1.6}
+  .footer-grid>a{font-weight:600;transition:color .18s ease}
+  .credits{max-width:58ch;line-height:1.65}
+
+  /* Light theme receives designed surfaces, not simple inversion. */
+  html[data-theme="light"] .atmosphere-grid{box-shadow:0 24px 58px rgba(70,53,29,.10)}
+  html[data-theme="light"] .interior-photo::after{background:linear-gradient(90deg,transparent 70%,rgba(245,239,227,.12))}
+  html[data-theme="light"] .review-grid article{background:linear-gradient(155deg,#fffaf0,#f6eddf)}
+  html[data-theme="light"] .review-grid article::after{color:rgba(157,118,39,.08)}
+  html[data-theme="light"] .review-grid article:hover{border-color:#bca57d}
+  html[data-theme="light"] .visit-copy{background:linear-gradient(155deg,#fffaf0,#f1e7d8)}
+  html[data-theme="light"] .map-card:hover{border-color:#b69a67;box-shadow:0 18px 38px rgba(70,53,29,.10)}
+  html[data-theme="light"] .booking-card{background:radial-gradient(circle at 100% 0,rgba(102,113,71,.24),transparent 38%),linear-gradient(145deg,#f4ecde,#e9dfce)}
+  html[data-theme="light"] .booking-card h3{color:#252118}
+}
+
+/* Laptop desktop: preserve density at 1280/1366 heights. */
+@media (min-width:1025px) and (max-width:1366px){
+  .atmosphere-grid{grid-template-columns:minmax(0,1.12fr) minmax(22rem,.88fr);min-height:30rem}
+  .atmosphere-copy{padding:2.6rem}
+  .atmosphere-copy blockquote{margin:1.45rem 0 1.65rem;font-size:1.05rem}
+  .review-grid article{min-height:17rem;padding:1.55rem}
+  .review-grid p{margin:1.1rem 0 1.4rem;font-size:1rem}
+  .visit-grid{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr) minmax(16rem,.8fr);gap:.75rem}
+  .visit-copy,.map-card,.booking-card{min-height:20rem}
+  .visit-copy,.booking-card{padding:1.75rem}
+  .booking-card h3{font-size:1.65rem}
+}
+
+/* Large screens gain atmosphere through breathing room, not stretched content. */
+@media (min-width:1728px){
+  .atmosphere-grid{min-height:36rem}
+  .review-grid article{min-height:20rem}
+  .visit-copy,.map-card,.booking-card{min-height:23.5rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .review-grid article,.map-card{transition:none}
+  .review-grid article:hover,.map-card:hover{transform:none}
+}
