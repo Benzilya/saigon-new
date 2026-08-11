@@ -22,3 +22,8 @@
 @media(max-width:960px) and (max-height:480px) and (orientation:landscape){
   :root{--header-h:64px}
 }
+
+/* Touch QA: vertical page scrolling must keep working when a swipe starts on a dish carousel. */
+@media(pointer:coarse){
+  .featured-menu,.menu-tabs{touch-action:auto}
+}
