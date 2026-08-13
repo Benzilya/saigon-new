@@ -1,0 +1,35 @@
+/* Cross-device hardening: stable local imagery, predictable text sizing, safer mobile typography. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{min-width:0}
+img,iframe{max-width:100%}
+
+/* Keep the two most prominent section backgrounds local to the repository. */
+.hero-photo{background-image:url('assets/menu/pho-bo.webp')!important;background-position:center 46%!important;background-size:cover!important;background-repeat:no-repeat!important}
+.interior-photo{background-image:linear-gradient(0deg,rgba(4,4,3,.38),rgba(4,4,3,.02)),url('assets/interior/interior-dark.webp')!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important}
+
+/* Give serif descenders reliable room even when the web font is unavailable. */
+.hero h1{line-height:1.15;letter-spacing:-.018em}
+
+@media(max-width:960px){
+  .hero h1{line-height:1.17;letter-spacing:-.012em}
+}
+
+@media(max-width:640px){
+  /* Compact rating card on phones. */
+  .rating-card{padding:14px 15px;gap:2px 8px}
+  .rating-card .star,.rating-card strong{font-size:21px;line-height:1}
+  .rating-card span:nth-of-type(2),.rating-card small{font-size:10px;line-height:1.4}
+
+  /* Reviews should feel secondary to the section title on small screens. */
+  .reviews .section-head h2{font-size:clamp(1.7rem,7.4vw,2.05rem);line-height:1.15}
+  .review-grid article{padding:1.15rem}
+  .review-grid .stars{font-size:.86rem;letter-spacing:.08em}
+  .review-grid p{font-size:.92rem;line-height:1.5;min-height:0}
+  .review-grid strong{font-size:.75rem}
+}
+
+@media(max-width:400px){
+  .hero h1{line-height:1.18}
+  .rating-card .star,.rating-card strong{font-size:20px}
+  .review-grid p{font-size:.9rem}
+}
