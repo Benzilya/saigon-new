@@ -1,3 +1,47 @@
-.hero-photo {
-  background-image: url("assets/hero/pho-bo-hero.jpg");
+/* Reliability layer: prefer repository-hosted visuals and robust local fallbacks. */
+
+:root{
+  --font-sans:Manrope,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-serif:Prata,Georgia,"Times New Roman",serif;
+}
+
+body,.btn,.theme-toggle,.nav,.phone-link,.brand,.menu-catalog,.booking-card,.visit-copy,.footer{
+  font-family:var(--font-sans);
+}
+.hero h1,.section h2,.atmosphere-copy blockquote,.review-grid p,.booking-card h3,.visit-copy h2{
+  font-family:var(--font-serif);
+}
+
+/* Do not depend on Unsplash for the visible site. */
+.hero-photo{
+  background-image:url("assets/hero/pho-bo-hero.jpg");
+}
+.interior-photo{
+  --interior-image:url("assets/interior/interior-dark.webp");
+}
+html[data-theme="light"] .interior-photo{
+  --interior-image:url("assets/interior/interior-light.webp");
+}
+.dish-photo-pho{
+  background-image:url("assets/menu/pho-bo.webp");
+}
+.dish-photo-bun{
+  background-image:url("assets/menu/bun-cha.webp");
+}
+.dish-photo-rolls{
+  background-image:url("assets/menu/nem-haisan.webp");
+}
+
+/* The map is an enhancement. Address, phone and route button remain usable even if Yandex is blocked. */
+.map-card{
+  background:#111;
+}
+
+/* Mobile polish requested during QA. */
+@media(max-width:640px){
+  .rating-card .star,.rating-card strong{font-size:21px}
+  .rating-card span:nth-of-type(2),.rating-card small{font-size:10px}
+  .review-grid p{font-size:.92rem;line-height:1.5}
+  .review-grid .stars{font-size:.9rem;letter-spacing:.08em}
+  .review-grid strong{font-size:12px}
 }
