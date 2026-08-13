@@ -26,10 +26,11 @@
 .review-grid article{padding:clamp(1.35rem,2.2vw,1.8rem);display:flex;flex-direction:column}
 .review-grid p{min-height:0;flex:1}
 
-/* Visit block keeps map useful instead of squeezing it into a narrow card. */
-.visit-grid{grid-template-columns:minmax(17rem,1fr) minmax(22rem,1.15fr) minmax(16rem,.85fr);gap:clamp(.75rem,1.2vw,1rem)}
+/* Visit block: wider live map on desktop. */
+.visit-grid{grid-template-columns:minmax(16rem,30fr) minmax(28rem,42fr) minmax(15rem,28fr);gap:clamp(.75rem,1.2vw,1rem)}
 .visit-copy,.map-card,.booking-card{min-height:clamp(20rem,29vw,23rem)}
 .visit-copy,.booking-card{padding:clamp(1.5rem,2.6vw,2.2rem)}
+.map-card{width:100%;display:block}
 .map-label{max-width:calc(100% - 2rem);left:1rem;bottom:1rem;overflow-wrap:anywhere}
 .footer-grid{grid-template-columns:minmax(11rem,1.2fr) minmax(12rem,1fr) minmax(10rem,1fr) minmax(16rem,2fr)}
 
